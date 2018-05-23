@@ -50,7 +50,7 @@ for (unsigned u = 10; u >= 0; --u)
     std::cout << u << std::endl;
 ```
 
-当u等于0时，--u的结果将会是4294967295。一种解决办法是用while语句来代替for语句，前者可以在输出变量前先减去1。 
+当*u*等于0时，*--u*的结果将会是4294967295。一种解决办法是用while语句来代替for语句，前者可以在输出变量前先减去1。 
 
 ```c++
 unsigned u = 11;    // start the loop one past the first element we want to print
