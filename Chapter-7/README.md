@@ -16,9 +16,10 @@
 struct Sales_data
 {
     // new members: operations on Sales_data objects
-    std::string isbn() const { return bookNo; } 
+    std::string isbn() const { return bookNo; }
     Sales_data& combine(const Sales_data&);
-    double avg_price() const;   
+    double avg_price() const;
+    
     // data members
     std::string bookNo;
     unsigned units_sold = 0;
