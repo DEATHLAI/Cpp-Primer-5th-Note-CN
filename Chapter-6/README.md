@@ -163,13 +163,13 @@ f(int (&arr)[10])   // ok: arr is a reference to an array of ten ints
 可以在命令行中向main函数传递参数，形式如下：
 
 ```c++
-int main(int argc, char *argv[]) { ... }
-int main(int argc, char **argv) { ... }
+int main(int argc, char *argv[]) { /*...*/ }
+int main(int argc, char **argv) { /*...*/ }
 ```
 
-第二个形参argv是一个数组，数组元素是指向C风格字符串的指针；第一个形参argc表示数组中字符串的数量。
+第二个形参*argv*是一个数组，数组元素是指向C风格字符串的指针；第一个形参*argc*表示数组中字符串的数量。
 
-当实参传递给main函数后，argv的第一个元素指向程序的名字或者一个空字符串，接下来的元素依次传递命令行提供的实参。最后一个指针之后的元素值保证为0。
+当实参传递给main函数后，*argv*的第一个元素指向程序的名字或者一个空字符串，接下来的元素依次传递命令行提供的实参。最后一个指针之后的元素值保证为0。
 
 在Visual Studio中可以设置main函数调试参数：
 
