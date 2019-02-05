@@ -6,7 +6,7 @@
 
 重载运算符函数的参数数量和该运算符作用的运算对象数量一样多。对于二元运算符来说，左侧运算对象传递给第一个参数，右侧运算对象传递给第二个参数。除了重载的函数调用运算符`operator()`之外，其他重载运算符不能含有默认实参。
 
-如果一个运算符函数是类的成员函数，则它的第一个运算对象会绑定到隐式的this指针上。因此成员运算符函数的显式参数数量比运算对象的数量少一个。
+如果一个运算符函数是类的成员函数，则它的第一个运算对象会绑定到隐式的`this`指针上。因此成员运算符函数的显式参数数量比运算对象的数量少一个。
 
 当运算符作用于内置类型的运算对象时，无法改变该运算符的含义。
 
@@ -51,7 +51,7 @@ string u = "hi" + s;    // would be an error if + were a member of string
 
 ### 重载输出运算符<<（Overloading the Output Operator <<）
 
-通常情况下，输出运算符的第一个形参是ostream类型的普通引用，第二个形参是要打印类型的常量引用，返回值是它的ostream形参。
+通常情况下，输出运算符的第一个形参是`ostream`类型的普通引用，第二个形参是要打印类型的常量引用，返回值是它的`ostream`形参。
 
 ```c++
 ostream &operator<<(ostream &os, const Sales_data &item)
@@ -93,13 +93,13 @@ istream &operator>>(istream &is, Sales_data &item)
 
 当读取操作发生错误时，输入操作符应该负责从错误状态中恢复。
 
-如果输入的数据不符合规定的格式，即使从技术上看IO操作是成功的，输入运算符也应该设置流的条件状态以标示出失败信息。通常情况下，输入运算符只设置failbit状态。eofbit、badbit等错误最好由IO标准库自己标示。
+如果输入的数据不符合规定的格式，即使从技术上看IO操作是成功的，输入运算符也应该设置流的条件状态以标示出失败信息。通常情况下，输入运算符只设置`failbit`状态。`eofbit`、`badbit`等错误最好由IO标准库自己标示。
 
 ## 算术和关系运算符（Arithmetic and Relational Operators）
 
 通常情况下，算术和关系运算符应该定义为非成员函数，以便两侧的运算对象进行转换。其次，由于这些运算符一般不会改变运算对象的状态，所以形参都是常量引用。
 
-算术运算符通常会计算它的两个运算对象并得到一个新值，这个值通常存储在一个局部变量内，操作完成后返回该局部变量的副本作为结果（返回类型建议设置为原对象的const类型）。
+算术运算符通常会计算它的两个运算对象并得到一个新值，这个值通常存储在一个局部变量内，操作完成后返回该局部变量的副本作为结果（返回类型建议设置为原对象的`const`类型）。
 
 ```c++
 // assumes that both objects refer to the same book
@@ -119,11 +119,11 @@ Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs)
 
 - 如果类在逻辑上有相等性的含义，则应该定义`operator==`而非一个普通的命名函数。这样做便于使用标准库容器和算法，也更容易记忆。
 
-- 通常情况下，operator==应该具有传递性。
+- 通常情况下，`operator==`应该具有传递性。
 
-- 如果类定义了operator==，则也应该定义`operator!=`。
+- 如果类定义了`operator==`，则也应该定义`operator!=`。
 
-- operator==和operator!=中的一个应该把具体工作委托给另一个。
+- `operator==`和`operator!=`中的一个应该把具体工作委托给另一个。
 
   ```c++
   bool operator==(const Sales_data &lhs, const Sales_data &rhs)
@@ -146,8 +146,8 @@ Sales_data operator+(const Sales_data &lhs, const Sales_data &rhs)
 关系运算符设计准则：
 
 - 定义顺序关系，令其与关联容器中对关键字的要求保持一致。
-- 如果类定义了operator==，则关系运算符的定义应该与operator==保持一致。特别是，如果两个对象是不相等的，那么其中一个对象应该小于另一个对象。
-- 只有存在唯一一种逻辑可靠的小于关系时，才应该考虑为类定义operator<。
+- 如果类定义了`operator==`，则关系运算符的定义应该与`operator==`保持一致。特别是，如果两个对象是不相等的，那么其中一个对象应该小于另一个对象。
+- 只有存在唯一一种逻辑可靠的小于关系时，才应该考虑为类定义`operator<`。
 
 ## 赋值运算符（Assignment Operators）
 
@@ -210,7 +210,7 @@ StrBlobPtr& StrBlobPtr::operator++()
 }
 ```
 
-后置递增或递减运算符接受一个额外的（不被使用）int类型形参，该形参的唯一作用就是区分运算符的前置和后置版本。
+后置递增或递减运算符接受一个额外的（不被使用）`int`类型形参，该形参的唯一作用就是区分运算符的前置和后置版本。
 
 ```c++
 class StrBlobPtr
@@ -224,7 +224,7 @@ public:
 };
 ```
 
-为了与内置操作保持一致，后置递增或递减运算符应该返回运算前对象的原值（返回类型建议设置为原对象的const类型）。
+为了与内置操作保持一致，后置递增或递减运算符应该返回运算前对象的原值（返回类型建议设置为原对象的`const`类型）。
 
 ```c++
 StrBlobPtr StrBlobPtr::operator++(int)
@@ -264,10 +264,10 @@ public:
 };
 ```
 
-对于形如*point->mem*的表达式来说，*point*必须是指向类对象的指针或者是一个重载了`operator->`的类的对象。*point*类型不同，*point->mem*的含义也不同。
+对于形如`point->mem`的表达式来说，*point*必须是指向类对象的指针或者是一个重载了`operator->`的类的对象。*point*类型不同，`point->mem`的含义也不同。
 
-- 如果*point*是指针，则调用内置箭头运算符，表达式等价于*(\*point).mem*。
-- 如果*point*是重载了operator->的类的对象，则使用*point.operator->()*的结果来获取*mem*，表达式等价于*(point.operator->())->mem*。其中，如果该结果是一个指针，则执行内置操作，否则重复调用当前操作。
+- 如果*point*是指针，则调用内置箭头运算符，表达式等价于`(*point).mem`。
+- 如果*point*是重载了`operator->`的类的对象，则使用`point.operator->()`的结果来获取*mem*，表达式等价于`(point.operator->())->mem`。其中，如果该结果是一个指针，则执行内置操作，否则重复调用当前操作。
 
 ## 函数调用运算符（Function-Call Operator）
 
@@ -301,7 +301,7 @@ for_each(vs.begin(), vs.end(), PrintString(cerr, '\n'));
 
 ### lambda是函数对象（Lambdas Are Function Objects）
 
-编写一个lambda后，编译器会将该表达式转换成一个未命名类的未命名对象，类中含有一个重载的函数调用运算符。
+编写一个`lambda`后，编译器会将该表达式转换成一个未命名类的未命名对象，类中含有一个重载的函数调用运算符。
 
 ```c++
 // sort words by size, but maintain alphabetical order for words of the same size
@@ -319,9 +319,9 @@ public:
 };
 ```
 
-lambda默认不能改变它捕获的变量。因此在默认情况下，由lambda产生的类中的函数调用运算符是一个const成员函数。如果lambda被声明为可变的，则调用运算符就不再是const函数了。
+`lambda`默认不能改变它捕获的变量。因此在默认情况下，由`lambda`产生的类中的函数调用运算符是一个`const`成员函数。如果`lambda`被声明为可变的，则调用运算符就不再是`const`函数了。
 
-lambda通过引用捕获变量时，由程序负责确保lambda执行时该引用所绑定的对象确实存在。因此编译器可以直接使用该引用而无须在lambda产生的类中将其存储为数据成员。相反，通过值捕获的变量被拷贝到lambda中，此时lambda产生的类必须为每个值捕获的变量建立对应的数据成员，并创建构造函数，用捕获变量的值来初始化数据成员。
+`lambda`通过引用捕获变量时，由程序负责确保`lambda`执行时该引用所绑定的对象确实存在。因此编译器可以直接使用该引用而无须在`lambda`产生的类中将其存储为数据成员。相反，通过值捕获的变量被拷贝到`lambda`中，此时`lambda`产生的类必须为每个值捕获的变量建立对应的数据成员，并创建构造函数，用捕获变量的值来初始化数据成员。
 
 ```c++
 // get an iterator to the first element whose size() is >= sz
@@ -344,7 +344,7 @@ private:
 };
 ```
 
-lambda产生的类不包含默认构造函数、赋值运算符和默认析构函数，它是否包含默认拷贝/移动构造函数则通常要视捕获的变量类型而定。
+`lambda`产生的类不包含默认构造函数、赋值运算符和默认析构函数，它是否包含默认拷贝/移动构造函数则通常要视捕获的变量类型而定。
 
 ### 标准库定义的函数对象（Library-Defined Function Objects）
 
@@ -371,7 +371,7 @@ sort(nameTable.begin(), nameTable.end(), less<string*>());
 
 ![14-3](Image/14-3.png)
 
-创建一个具体的function类型时必须提供其所表示的对象的调用形式。
+创建一个具体的`function`类型时必须提供其所表示的对象的调用形式。
 
 ```c++
 // ordinary function
@@ -394,9 +394,9 @@ cout << f2(4,2) << endl;   // prints 2
 cout << f3(4,2) << endl;   // prints 8
 ```
 
-不能直接将重载函数的名字存入function类型的对象中，这样做会产生二义性错误。消除二义性的方法是使用lambda或者存储函数指针而非函数名字。
+不能直接将重载函数的名字存入`function`类型的对象中，这样做会产生二义性错误。消除二义性的方法是使用`lambda`或者存储函数指针而非函数名字。
 
-C++11新标准库中的function类与旧版本中的`unary_function`和`binary_function`没有关系，后两个类已经被bind函数代替。
+C++11新标准库中的`function`类与旧版本中的`unary_function`和`binary_function`没有关系，后两个类已经被`bind`函数代替。
 
 ## 重载、类型转换与运算符（Overloading，Conversions，and Operators）
 
@@ -410,7 +410,7 @@ C++11新标准库中的function类与旧版本中的`unary_function`和`binary_f
 operator type() const;
 ```
 
-类型转换运算符可以面向除了void以外的任意类型（该类型要能作为函数的返回类型）进行定义。
+类型转换运算符可以面向除了`void`以外的任意类型（该类型要能作为函数的返回类型）进行定义。
 
 ```c++
 class SmallInt
@@ -457,18 +457,18 @@ static_cast<int>(si) + 3;    // ok: explicitly request the conversion
 
 如果表达式被用作条件，则编译器会隐式地执行显式类型转换。
 
-- if、while、do语句的条件部分。
-- for语句头的条件表达式。
+- `if`、`while`、`do-while`语句的条件部分。
+- `for`语句头的条件表达式。
 - 条件运算符`? :`的条件表达式。
 - 逻辑非运算符`!`、逻辑或运算符`||`、逻辑与运算符`&&`的运算对象。
 
-类类型向bool的类型转换通常用在条件部分，因此`operator bool`一般被定义为显式的。
+类类型向`bool`的类型转换通常用在条件部分，因此`operator bool`一般被定义为显式的。
 
 ### 避免有二义性的类型转换（Avoiding Ambiguous Conversions）
 
 在两种情况下可能产生多重转换路径：
 
-- A类定义了一个接受B类对象的转换构造函数，同时B类定义了一个转换目标是A类的类型转换运算符。
+- *A*类定义了一个接受*B*类对象的转换构造函数，同时*B*类定义了一个转换目标是*A*类的类型转换运算符。
 
   ```c++
   // usually a bad idea to have mutual conversions between two class types

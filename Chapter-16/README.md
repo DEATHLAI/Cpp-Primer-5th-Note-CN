@@ -50,7 +50,7 @@ template <typename T, U> T calc(const T&, const U&);
 template <typename T, class U> calc (const T&, const U&);
 ```
 
-建议使用typename而不是class来指定模板类型参数，这样更加直观。
+建议使用`typename`而不是`class`来指定模板类型参数，这样更加直观。
 
 模板非类型参数（nontype parameter）需要用特定的类型名来指定，表示一个值而非一个类型。非类型参数可以是整型、指向对象或函数类型的指针或左值引用。
 
@@ -66,7 +66,7 @@ int compare(const char (&p1)[3], const char (&p2)[4]);
 
 绑定到整型非类型参数的实参必须是一个常量表达式。绑定到指针或引用非类型参数的实参必须具有静态的生存期，不能用普通局部变量或动态对象作为指针或引用非类型参数的实参。
 
-函数模板也可以声明为inline或constexpr的，说明符放在模板参数列表之后，返回类型之前。
+函数模板也可以声明为`inline`或`constexpr`的，说明符放在模板参数列表之后，返回类型之前。
 
 ```c++
 // ok: inline specifier follows the template parameter list
@@ -129,7 +129,7 @@ Blob<double> prices;    // different element type
 
 如果一个类模板中的代码使用了另一个模板，通常不会将一个实际类型（或值）的名字用作其模板实参，而是将模板自己的参数用作被使用模板的实参。
 
-类模板的成员函数具有和类模板相同的模板参数，因此定义在类模板外的成员函数必须以关键字template开始，后跟类模板参数列表。
+类模板的成员函数具有和类模板相同的模板参数，因此定义在类模板外的成员函数必须以关键字`template`开始，后跟类模板参数列表。
 
 ```c++
 template <typename T>
@@ -221,14 +221,14 @@ class Bar
 };
 ```
 
-C++11允许使用using为类模板定义类型别名。
+C++11允许使用`using`为类模板定义类型别名。
 
 ```c++
 template<typename T> using twin = pair<T, T>;
 twin<string> authors;   // authors is a pair<string, string>
 ```
 
-类模板可以声明static成员。
+类模板可以声明`static`成员。
 
 ```c++
 template <typename T>
@@ -247,7 +247,7 @@ Foo<string> fs;
 Foo<int> fi, fi2, fi3;
 ```
 
-类模板的每个实例都有一个独有的static对象，而每个static成员必须有且只有一个定义。因此与定义模板的成员函数类似，static成员也应该定义成模板。
+类模板的每个实例都有一个独有的`static`对象，而每个`static`成员必须有且只有一个定义。因此与定义模板的成员函数类似，`static`成员也应该定义成模板。
 
 ```c++
 template <typename T>
@@ -274,9 +274,9 @@ void f(A a, B b)
 
 一个特定文件所需要的所有模板声明通常一起放置在文件开始位置，出现在任何使用这些模板的代码之前。
 
-模板中的代码使用作用域运算符`::`时，编译器无法确定其访问的名字是类型还是static成员。
+模板中的代码使用作用域运算符`::`时，编译器无法确定其访问的名字是类型还是`static`成员。
 
-默认情况下，C++假定模板中通过作用域运算符访问的名字是static成员。因此，如果需要使用一个模板类型参数的类型成员，就必须使用关键字`typename`显式地告知编译器该名字是一个类型。
+默认情况下，C++假定模板中通过作用域运算符访问的名字是`static`成员。因此，如果需要使用一个模板类型参数的类型成员，就必须使用关键字`typename`显式地告知编译器该名字是一个类型。
 
 ```c++
 template <typename T>
@@ -374,7 +374,7 @@ extern template declaration;    // instantiation declaration
 template declaration;           // instantiation definition
 ```
 
-*declaration*是一个类或函数声明，其中所有模板参数已被替换为模板实参。当编译器遇到extern模板声明时，它不会在本文件中生成实例化代码。对于一个给定的实例化版本，可能有多个extern声明，但必须只有一个定义。
+*declaration*是一个类或函数声明，其中所有模板参数已被替换为模板实参。当编译器遇到`extern`模板声明时，它不会在本文件中生成实例化代码。对于一个给定的实例化版本，可能有多个`extern`声明，但必须只有一个定义。
 
 ```c++
 // templateBuild.cc
@@ -398,7 +398,7 @@ int i = compare(a1[0], a2[0]);    // instantiation will appear elsewhere
 
 ### 效率与灵活性（Efficiency and Flexibility）
 
-unique_ptr在编译时绑定删除器，避免了间接调用删除器的运行时开销。shared_ptr在运行时绑定删除器，使用户重载删除器的操作更加简便。
+`unique_ptr`在编译时绑定删除器，避免了间接调用删除器的运行时开销。`shared_ptr`在运行时绑定删除器，使用户重载删除器的操作更加简便。
 
 ## 模板实参推断（Template Argument Deduction）
 
@@ -410,8 +410,8 @@ unique_ptr在编译时绑定删除器，避免了间接调用删除器的运行�
 
 有3种类型转换可以在调用中应用于函数模板：
 
-- 顶层const会被忽略。
-- 可以将一个非const对象的引用或指针传递给一个const引用或指针形参。
+- 顶层`const`会被忽略。
+- 可以将一个非`const`对象的引用或指针传递给一个`const`引用或指针形参。
 - 如果函数形参不是引用类型，则可以对数组或函数类型的实参应用正常的指针转换。数组实参可以转换为指向其首元素的指针。函数实参可以转换为该函数类型的指针。
 
 其他的类型转换，如算术转换、派生类向基类的转换以及用户定义的转换，都不能应用于函数模板。
@@ -505,11 +505,11 @@ auto fcn(It beg, It end) -> decltype(*beg)
 }
 ```
 
-标准库在头文件*type_traits*中定义了类型转换模板，这些模板常用于模板元程序设计。其中每个模板都有一个名为`type`的公有类型成员，表示一个类型。此类型与模板自身的模板类型参数相关。如果不可能（或不必要）转换模板参数，则type成员就是模板参数类型本身。
+标准库在头文件*type_traits*中定义了类型转换模板，这些模板常用于模板元程序设计。其中每个模板都有一个名为`type`的公有类型成员，表示一个类型。此类型与模板自身的模板类型参数相关。如果不可能（或不必要）转换模板参数，则`type`成员就是模板参数类型本身。
 
 ![16-1](Image/16-1.png)
 
-使用`remove_reference`可以获得引用对象的元素类型，如果用一个引用类型实例化remove_reference，则type表示被引用的类型。因为type是一个类的类型成员，所以在模板中必须使用关键字typename来告知编译器其表示一个类型。
+使用`remove_reference`可以获得引用对象的元素类型，如果用一个引用类型实例化`remove_reference`，则`type`表示被引用的类型。因为`type`是一个类的类型成员，所以在模板中必须使用关键字`typename`来告知编译器其表示一个类型。
 
 ```c++
 // must use typename to use a type member of a template parameter
@@ -544,7 +544,7 @@ func(compare<int>);    // passing compare(const int&, const int&)
 
 ### 模板实参推断和引用（Template Argument Deduction and References）
 
-当一个函数参数是模板类型参数的普通（左值）引用（形如*T&*）时，只能传递给它一个左值（如一个变量或一个返回引用类型的表达式）。*T*被推断为实参所引用的类型，如果实参是const的，则*T*也为const类型。
+当一个函数参数是模板类型参数的普通（左值）引用（形如`T&`）时，只能传递给它一个左值（如一个变量或一个返回引用类型的表达式）。*T*被推断为实参所引用的类型，如果实参是`const`的，则*T*也为`const`类型。
 
 ```c++
 template <typename T> void f1(T&);    // argument must be an lvalue
@@ -554,7 +554,7 @@ f1(ci);    // ci is a const int; template parameter T is const int
 f1(5);     // error: argument to a & parameter must be an lvalue
 ```
 
-当一个函数参数是模板类型参数的常量引用（形如*const T&*）时，可以传递给它任何类型的实参。函数参数本身是const时，*T*的类型推断结果不会是const类型。const已经是函数参数类型的一部分了，因此不会再是模板参数类型的一部分。
+当一个函数参数是模板类型参数的常量引用（形如`const T&`）时，可以传递给它任何类型的实参。函数参数本身是`const`时，*T*的类型推断结果不会是`const`类型。`const`已经是函数参数类型的一部分了，因此不会再是模板参数类型的一部分。
 
 ```c++
 template <typename T> void f2(const T&);    // can take an rvalue
@@ -565,7 +565,7 @@ f2(ci);    // ci is a const int, but template parameter T is int
 f2(5);     // a const & parameter can be bound to an rvalue; T is int
 ```
 
-当一个函数参数是模板类型参数的右值引用（形如*T&&*）时，如果传递给它一个右值，类型推断过程类似普通左值引用函数参数的推断过程，推断出的*T*类型是该右值实参的类型。
+当一个函数参数是模板类型参数的右值引用（形如`T&&`）时，如果传递给它一个右值，类型推断过程类似普通左值引用函数参数的推断过程，推断出的*T*类型是该右值实参的类型。
 
 ```c++
 template <typename T> void f3(T&&);
@@ -580,8 +580,8 @@ f3(42);    // argument is an rvalue of type int; template parameter T is int
 
   |          折叠前          | 折叠后 |
   | :----------------------: | :----: |
-  | *T& &*、*T& &&*、*T&& &* |  *T&*  |
-  |         *T&& &&*         | *T&&*  |
+  | `T& &`、`T& &&`、`T&& &` |  `T&`  |
+  |         `T&& &&`         | `T&&`  |
 
 ```c++
 f3(i);    // argument is an lvalue; template parameter T is int&
@@ -618,7 +618,7 @@ template <typename T> void f(const T&);    // lvalues and const rvalues
 
 ### 理解std::move（Understanding std::move）
 
-std::move的定义如下：
+`std::move`的定义如下：
 
 ```c++
 template <typename T>
@@ -628,7 +628,7 @@ typename remove_reference<T>::type&& move(T&& t)
 }
 ```
 
-std::move的工作过程：
+`std::move`的工作过程：
 
 ```c++
 string s1("hi!"), s2;
@@ -638,25 +638,25 @@ s2 = std::move(s1);     // ok: but after the assigment s1 has indeterminate valu
 
 - 在`std::move(string("bye!"))`中传递的是右值。
 
-- - 推断出的*T*类型为string。
-  - remove_reference用string进行实例化。
-  - remove_reference\<string\>的type成员是string。
-  - move的返回类型是string&&。
-  - move的函数参数t的类型为string&&。
+- - 推断出的*T*类型为`string`。
+  - `remove_reference`用`string`进行实例化。
+  - `remove_reference<string>`的`type`成员是`string`。
+  - `move`的返回类型是`string&&`。
+  - `move`的函数参数*t*的类型为`string&&`。
 
 - 在`std::move(s1)`中传递的是左值。
 
-- - 推断出的*T*类型为string&。
-  - remove_reference用string&进行实例化。
-  - remove_reference\<string&\>的type成员是string。
-  - move的返回类型是string&&。
-  - move的函数参数t的类型为string& &&，会折叠成string&。
+- - 推断出的*T*类型为`string&`。
+  - `remove_reference`用`string&`进行实例化。
+  - `remove_reference<string&>`的`type`成员是`string`。
+  - `move`的返回类型是`string&&`。
+  - `move`的函数参数t的类型为`string& &&`，会折叠成`string&`。
 
-可以使用static_cast显式地将一个左值转换为一个右值引用。
+可以使用`static_cast`显式地将一个左值转换为一个右值引用。
 
 ### 转发（Forwarding）
 
-某些函数需要将其一个或多个实参连同类型不变地转发给其他函数。在这种情况下，需要保持被转发实参的所有性质，包括实参的const属性以及左值/右值属性。
+某些函数需要将其一个或多个实参连同类型不变地转发给其他函数。在这种情况下，需要保持被转发实参的所有性质，包括实参的`const`属性以及左值/右值属性。
 
 ```c++
 template <typename F, typename T1, typename T2>
@@ -674,7 +674,7 @@ f(42, i);   // f changes its argument i
 flip1(f, j, 42);    // f called through flip1 leaves j unchanged
 ```
 
-将函数参数定义为指向模板类型参数的右值引用（形如*T&&*），通过引用折叠，可以保持翻转实参的左值/右值属性。并且引用参数（无论是左值还是右值）可以保持实参的const属性，因为在引用类型中的const是底层的。
+将函数参数定义为指向模板类型参数的右值引用（形如`T&&`），通过引用折叠，可以保持翻转实参的左值/右值属性。并且引用参数（无论是左值还是右值）可以保持实参的`const`属性，因为在引用类型中的`const`是底层的。
 
 ```c++
 template <typename F, typename T1, typename T2>
@@ -696,9 +696,9 @@ void g(int &&i, int& j)
 flip2(g, i, 42);
 ```
 
-C++11在头文件*utility*中定义了`forward`。与move不同，forward必须通过显式模板实参调用，返回该显式实参类型的右值引用。即forward\<*T*\>返回类型*T&&*。
+C++11在头文件*utility*中定义了`forward`。与`move`不同，`forward`必须通过显式模板实参调用，返回该显式实参类型的右值引用。即`forward<T>`返回类型`T&&`。
 
-通常情况下，可以使用forward传递定义为指向模板类型参数的右值引用函数参数。通过其返回类型上的引用折叠，forward可以保持给定实参的左值/右值属性。
+通常情况下，可以使用`forward`传递定义为指向模板类型参数的右值引用函数参数。通过其返回类型上的引用折叠，`forward`可以保持给定实参的左值/右值属性。
 
 ```c++
 template <typename Type>
@@ -715,7 +715,7 @@ void flip(F f, T1 &&t1, T2 &&t2)
 }
 ```
 
-与std::move一样，对std::forward也不应该使用using声明。
+与`std::move`一样，对`std::forward`也不应该使用`using`声明。
 
 ## 重载与模板（Overloading and Templates）
 
@@ -724,14 +724,10 @@ void flip(F f, T1 &&t1, T2 &&t2)
 如果重载涉及函数模板，则函数匹配规则会受到一些影响：
 
 - 对于一个调用，其候选函数包括所有模板实参推断成功的函数模板实例。
-
 - 候选的函数模板都是可行的，因为模板实参推断会排除任何不可行的模板。
-
 - 和往常一样，可行函数（模板与非模板）按照类型转换（如果需要的话）来排序。但是可以用于函数模板调用的类型转换非常有限。
-
 - 和往常一样，如果恰有一个函数提供比其他任何函数都更好的匹配，则选择此函数。但是如果多个函数都提供相同级别的匹配，则：
-
-- - 如果同级别的函数中只有一个是非模板函数，则选择此函数。
+  - 如果同级别的函数中只有一个是非模板函数，则选择此函数。
   - 如果同级别的函数中没有非模板函数，而有多个函数模板，且其中一个模板比其他模板更特例化，则选择此模板。
   - 否则该调用有歧义。
 
@@ -772,7 +768,7 @@ void foo(const T &t, const Args& ... rest);
 
 对于一个可变参数模板，编译器会推断模板参数类型和参数数量。
 
-可以使用`sizeof…`运算符获取参数包中的元素数量。类似sizeof，sizeof…也返回一个常量表达式，而且不会对其实参求值。
+可以使用`sizeof…`运算符获取参数包中的元素数量。类似`sizeof`，`sizeof…`也返回一个常量表达式，而且不会对其实参求值。
 
 ```c++
 template<typename ... Args>
@@ -805,11 +801,11 @@ ostream &print(ostream &os, const T &t, const Args&... rest)
 }
 ```
 
-|         Call          |      t      |   rest...   |
-| :-------------------: | :---------: | :---------: |
-| print(cout, i, s, 42) |      i      |    s, 42    |
-|  print(cout, s, 42)   |      s      |     42      |
-|    print(cout, 42)    | nonvariadic | nonvariadic |
+|          Call           |  t   | rest... |
+| :---------------------: | :--: | :-----: |
+| `print(cout, i, s, 42)` |  i   |  s, 42  |
+|  `print(cout, s, 42)`   |  s   |   42    |
+|    `print(cout, 42)`    |      |         |
 
 ### 包扩展（Pack Expansion）
 
@@ -826,7 +822,7 @@ ostream& print(ostream &os, const T &t, const Args&... rest)   // expand Args
 }
 ```
 
-- 第一个扩展操作扩展模板参数包，为print生成函数参数列表。编译器将模式*const Args&*应用到模板参数包*Args*中的每个元素上。因此该模式的扩展结果是一个以逗号分隔的零个或多个类型的列表，每个类型都形如*const type&*。
+- 第一个扩展操作扩展模板参数包，为`print`生成函数参数列表。编译器将模式`const Args&`应用到模板参数包*Args*中的每个元素上。因此该模式的扩展结果是一个以逗号分隔的零个或多个类型的列表，每个类型都形如`const type&`。
 
   ```c++
   print(cout, i, s, 42);   // two parameters in the pack
@@ -856,7 +852,7 @@ print(os, debug_rep(rest...));   // error: no matching function to call
 
 ### 转发参数包（Forwarding Parameter Packs）
 
-在C++11中，可以组合使用可变参数模板和forward机制来编写函数，实现将其实参不变地传递给其他函数。
+在C++11中，可以组合使用可变参数模板和`forward`机制来编写函数，实现将其实参不变地传递给其他函数。
 
 ```c++
 // fun has zero or more parameters each of which is
@@ -892,7 +888,7 @@ int compare(const char* const &p1, const char* const &p2)
 }
 ```
 
-特例化一个函数模板时，必须为模板中的每个模板参数都提供实参。为了指明我们正在实例化一个模板，应该在关键字template后面添加一个空尖括号对`<>`。
+特例化一个函数模板时，必须为模板中的每个模板参数都提供实参。为了指明我们正在实例化一个模板，应该在关键字`template`后面添加一个空尖括号对`<>`。
 
 特例化版本的参数类型必须与一个先前声明的模板中对应的类型相匹配。
 

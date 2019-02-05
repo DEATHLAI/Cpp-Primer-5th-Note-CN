@@ -33,9 +33,9 @@ string sum = accumulate(v.cbegin(), v.cend(), string(""));
 string sum = accumulate(v.cbegin(), v.cend(), "");
 ```
 
-建议在只读算法中使用cbegin和cend函数。
+建议在只读算法中使用`cbegin`和`cend`函数。
 
-`equal`函数用于确定两个序列是否保存相同的值。它接受三个迭代器参数，前两个参数指定第一个序列范围，第三个参数指定第二个序列的首元素。equal函数假定第二个序列至少与第一个序列一样长。
+`equal`函数用于确定两个序列是否保存相同的值。它接受三个迭代器参数，前两个参数指定第一个序列范围，第三个参数指定第二个序列的首元素。`equal`函数假定第二个序列至少与第一个序列一样长。
 
 ```c++
 // roster2 should have at least as many elements as roster1
@@ -64,7 +64,7 @@ fill_n(vec.begin(), vec.size(), 0);
 
 插入迭代器（insert iterator）是一种向容器内添加元素的迭代器。通过插入迭代器赋值时，一个与赋值号右侧值相等的元素会被添加到容器中。
 
-`back_inserter`函数（定义在头文件*iterator*中）接受一个指向容器的引用，返回与该容器绑定的插入迭代器。通过此迭代器赋值时，赋值运算符会调用push_back将一个具有给定值的元素添加到容器中。
+`back_inserter`函数（定义在头文件*iterator*中）接受一个指向容器的引用，返回与该容器绑定的插入迭代器。通过此迭代器赋值时，赋值运算符会调用`push_back`将一个具有给定值的元素添加到容器中。
 
 ```c++
 vector<int> vec;    // empty vector
@@ -90,7 +90,7 @@ auto ret = copy(begin(a1), end(a1), a2);    // copy a1 into a2
 replace(ilst.begin(), ilst.end(), 0, 42);
 ```
 
-相对于replace，`replace_copy`函数可以保留原序列不变。它接受第三个迭代器参数，指定调整后序列的保存位置。
+相对于`replace`，`replace_copy`函数可以保留原序列不变。它接受第三个迭代器参数，指定调整后序列的保存位置。
 
 ```c++
 // use back_inserter to grow destination as needed
@@ -147,22 +147,22 @@ sort(words.begin(), words.end(), isShorter);
 
 对于一个对象或表达式，如果可以对其使用调用运算符`()`，则称它为可调用对象（callable object）。可以向算法传递任何类别的可调用对象。
 
-一个lambda表达式表示一个可调用的代码单元，类似未命名的内联函数，但可以定义在函数内部。其形式如下：
+一个`lambda`表达式表示一个可调用的代码单元，类似未命名的内联函数，但可以定义在函数内部。其形式如下：
 
 ```c++
 [capture list] (parameter list) -> return type { function body }
 ```
 
-其中，*capture list*（捕获列表）是一个由lambda所在函数定义的局部变量的列表（通常为空）。*return type*、*parameter list*和*function body*与普通函数一样，分别表示返回类型、参数列表和函数体。但与普通函数不同，lambda必须使用尾置返回类型，且不能有默认实参。
+其中，*capture list*（捕获列表）是一个由`lambda`所在函数定义的局部变量的列表（通常为空）。*return type*、*parameter list*和*function body*与普通函数一样，分别表示返回类型、参数列表和函数体。但与普通函数不同，`lambda`必须使用尾置返回类型，且不能有默认实参。
 
-定义lambda时可以省略参数列表和返回类型，但必须包含捕获列表和函数体。省略参数列表等价于指定空参数列表。省略返回类型时，若函数体只是一个return语句，则返回类型由返回表达式的类型推断而来。否则返回类型为void。
+定义`lambda`时可以省略参数列表和返回类型，但必须包含捕获列表和函数体。省略参数列表等价于指定空参数列表。省略返回类型时，若函数体只是一个`return`语句，则返回类型由返回表达式的类型推断而来。否则返回类型为`void`。
 
 ```c++
 auto f = [] { return 42; };
 cout << f() << endl;    // prints 42
 ```
 
-lambda可以使用其所在函数的局部变量，但必须先将其包含在捕获列表中。捕获列表只能用于局部非static变量，lambda可以直接使用局部static变量和其所在函数之外声明的名字。
+`lambda`可以使用其所在函数的局部变量，但必须先将其包含在捕获列表中。捕获列表只能用于局部非`static`变量，`lambda`可以直接使用局部`static`变量和其所在函数之外声明的名字。
 
 ```c++
 // get an iterator to the first element whose size() is >= sz
@@ -180,7 +180,7 @@ for_each(wc, words.end(),
 
 ### lambda捕获和返回（Lambda Captures and Returns）
 
-被lambda捕获的变量的值是在lambda创建时拷贝，而不是调用时拷贝。在lambda创建后修改局部变量不会影响lambda内对应的值。
+被`lambda`捕获的变量的值是在`lambda`创建时拷贝，而不是调用时拷贝。在`lambda`创建后修改局部变量不会影响`lambda`内对应的值。
 
 ```c++
 size_t v1 = 42; // local variable
@@ -190,7 +190,7 @@ v1 = 0;
 auto j = f();   // j is 42; f stored a copy of v1 when we created it
 ```
 
-lambda可以以引用方式捕获变量，但必须保证lambda执行时变量存在。
+`lambda`可以以引用方式捕获变量，但必须保证`lambda`执行时变量存在。
 
 ```c++
 size_t v1 = 42; // local variable
@@ -200,7 +200,7 @@ v1 = 0;
 auto j = f2();  // j is 0; f2 refers to v1; it doesn't store it
 ```
 
-可以让编译器根据lambda代码隐式捕获函数变量，方法是在捕获列表中写一个`&`或`=`符号。`&`为引用捕获，`=`为值捕获。
+可以让编译器根据`lambda`代码隐式捕获函数变量，方法是在捕获列表中写一个`&`或`=`符号。`&`为引用捕获，`=`为值捕获。
 
 可以混合使用显式捕获和隐式捕获。混合使用时，捕获列表中的第一个元素必须是`&`或`=`符号，用于指定默认捕获方式。显式捕获的变量必须使用与隐式捕获不同的方式。
 
@@ -213,11 +213,11 @@ for_each(words.begin(), words.end(),
             [=, &os] (const string &s) { os << s << c; });
 ```
 
-lambda捕获列表形式：
+`lambda`捕获列表形式：
 
 ![10-2](Image/10-2.png)
 
-默认情况下，对于值方式捕获的变量，lambda不能修改其值。如果希望修改，就必须在参数列表后添加关键字`mutable`。
+默认情况下，对于值方式捕获的变量，`lambda`不能修改其值。如果希望修改，就必须在参数列表后添加关键字`mutable`。
 
 ```c++
 size_t v1 = 42; // local variable
@@ -227,7 +227,7 @@ v1 = 0;
 auto j = f();   // j is 43
 ```
 
-对于引用方式捕获的变量，lambda是否可以修改依赖于此引用指向的是否是const类型。
+对于引用方式捕获的变量，`lambda`是否可以修改依赖于此引用指向的是否是`const`类型。
 
 `transform`函数接受三个迭代器参数和一个可调用对象。前两个迭代器参数指定输入序列，第三个迭代器参数表示目的位置。它对输入序列中的每个元素调用可调用对象，并将结果写入目的位置。
 
@@ -236,7 +236,7 @@ transform(vi.begin(), vi.end(), vi.begin(),
             [](int i) -> int { if (i < 0) return -i; else return i; });
 ```
 
-为lambda定义返回类型时，必须使用尾置返回类型。
+为`lambda`定义返回类型时，必须使用尾置返回类型。
 
 ### 参数绑定（Binding Arguments）
 
@@ -260,7 +260,7 @@ string s = "hello";
 bool b1 = check6(s);    // check6(s) calls check_size(s, 6)
 ```
 
-bind函数可以调整给定可调用对象中的参数顺序。
+`bind`函数可以调整给定可调用对象中的参数顺序。
 
 ```c++
 // sort on word length, shortest to longest
@@ -269,9 +269,9 @@ sort(words.begin(), words.end(), isShorter);
 sort(words.begin(), words.end(), bind(isShorter, _2, _1));
 ```
 
-默认情况下，bind函数的非占位符参数被拷贝到bind返回的可调用对象中。但有些类型不支持拷贝操作。
+默认情况下，`bind`函数的非占位符参数被拷贝到`bind`返回的可调用对象中。但有些类型不支持拷贝操作。
 
-如果希望传递给bind一个对象而又不拷贝它，则必须使用标准库的`ref`函数。ref函数返回一个对象，包含给定的引用，此对象是可以拷贝的。`cref`函数生成保存const引用的类。
+如果希望传递给`bind`一个对象而又不拷贝它，则必须使用标准库的`ref`函数。`ref`函数返回一个对象，包含给定的引用，此对象是可以拷贝的。`cref`函数生成保存`const`引用的类。
 
 ```c++
 ostream &print(ostream &os, const string &s, char c);
@@ -284,7 +284,7 @@ for_each(words.begin(), words.end(), bind(print, ref(os), _1, ' '));
 
 - 插入迭代器（insert iterator）：该类型迭代器被绑定到容器对象上，可用来向容器中插入元素。
 - 流迭代器（stream iterator）：该类型迭代器被绑定到输入或输出流上，可用来遍历所关联的IO流。
-- 反向迭代器（reverse iterator）：该类型迭代器向后而不是向前移动。除了forward_list之外的标准库容器都有反向迭代器。
+- 反向迭代器（reverse iterator）：该类型迭代器向后而不是向前移动。除了`forward_list`之外的标准库容器都有反向迭代器。
 - 移动迭代器（move iterator）：该类型迭代器用来移动容器元素。
 
 ### 插入迭代器（Insert Iterators）
@@ -297,9 +297,9 @@ for_each(words.begin(), words.end(), bind(print, ref(os), _1, ' '));
 
 插入器有三种类型，区别在于元素插入的位置：
 
-- `back_inserter`：创建一个调用push_back操作的迭代器。
-- `front_inserter`：创建一个调用push_front操作的迭代器。
-- `inserter`：创建一个调用insert操作的迭代器。此函数接受第二个参数，该参数必须是一个指向给定容器的迭代器，元素会被插入到该参数指向的元素之前。
+- `back_inserter`：创建一个调用`push_back`操作的迭代器。
+- `front_inserter`：创建一个调用`push_front`操作的迭代器。
+- `inserter`：创建一个调用`insert`操作的迭代器。此函数接受第二个参数，该参数必须是一个指向给定容器的迭代器，元素会被插入到该参数指向的元素之前。
 
 ```c++
 list<int> 1st = { 1,2,3,4 };
@@ -314,7 +314,7 @@ copy(1st.cbegin(), lst.cend(), inserter(lst3, lst3.begin()));
 
 `istream_iterator`从输入流读取数据，`ostream_iterator`向输出流写入数据。这些迭代器将流当作特定类型的元素序列处理。
 
-创建流迭代器时，必须指定迭代器读写的对象类型。istream_iterator使用~来读取流，因此istream_iterator要读取的类型必须定义了`>>`运算符。创建istream_iterator时，可以将其绑定到一个流。如果默认初始化，则创建的是尾后迭代器。
+创建流迭代器时，必须指定迭代器读写的对象类型。`istream_iterator`使用`>>`来读取流，因此`istream_iterator`要读取的类型必须定义了`>>`运算符。创建`istream_iterator`时，可以将其绑定到一个流。如果默认初始化，则创建的是尾后迭代器。
 
 ```c++
 istream_iterator<int> int_it(cin);  // reads ints from cin
@@ -341,19 +341,19 @@ istream_iterator<int> in_iter(cin), eof;    // read ints from cin
 vector<int> vec(in_iter, eof);      // construct vec from an iterator range
 ```
 
-istream_iterator操作：
+`istream_iterator`操作：
 
 ![10-4](Image/10-4.png)
 
-将istream_iterator绑定到一个流时，标准库并不保证迭代器立即从流读取数据。但可以保证在第一次解引用迭代器之前，从流中读取数据的操作已经完成了。
+将`istream_iterator`绑定到一个流时，标准库并不保证迭代器立即从流读取数据。但可以保证在第一次解引用迭代器之前，从流中读取数据的操作已经完成了。
 
-定义ostream_iterator对象时，必须将其绑定到一个指定的流。不允许定义空的或者表示尾后位置的ostream_iterator。
+定义`ostream_iterator`对象时，必须将其绑定到一个指定的流。不允许定义空的或者表示尾后位置的`ostream_iterator`。
 
-ostream_iterator操作：
+`ostream_iterator`操作：
 
 ![10-5](Image/10-5.png)
 
-`*`和`++`运算符实际上不会对ostream_iterator对象做任何操作。但是建议代码写法与其他迭代器保持一致。
+`*`和`++`运算符实际上不会对`ostream_iterator`对象做任何操作。但是建议代码写法与其他迭代器保持一致。
 
 ```c++
 ostream_iterator<int> out_iter(cout, " ");
@@ -362,7 +362,7 @@ for (auto e : vec)
 cout << endl;
 ```
 
-可以为任何定义了`<<`运算符的类型创建istream_iterator对象，为定义了`>>`运算符的类型创建ostream_iterator对象。
+可以为任何定义了`<<`运算符的类型创建`istream_iterator`对象，为定义了`>>`运算符的类型创建`ostream_iterator`对象。
 
 ### 反向迭代器（Reverse Iterators）
 
@@ -376,7 +376,7 @@ sort(vec.rbegin(), vec.rend());
 
 ![10-6](Image/10-6.png)
 
-不能从forward_list或流迭代器创建反向迭代器。
+不能从`forward_list`或流迭代器创建反向迭代器。
 
 调用反向迭代器的`base`函数可以获得其对应的普通迭代器。
 
@@ -419,7 +419,7 @@ C++标准指定了泛型和数值算法的每个迭代器参数的最小类别�
 
 - 前向迭代器（forward iterator）：可以读写序列中的元素。只能在序列中沿一个方向移动。支持所有输入和输出迭代器的操作，而且可以多次读写同一个元素。因此可以使用前向迭代器对序列进行多遍扫描。
 
-- 双向迭代器（bidirectional iterator）：可以正向/反向读写序列中的元素。除了支持所有前向迭代器的操作之外，还支持前置和后置递减运算符`--`。除forward_list之外的其他标准库容器都提供符合双向迭代器要求的迭代器。
+- 双向迭代器（bidirectional iterator）：可以正向/反向读写序列中的元素。除了支持所有前向迭代器的操作之外，还支持前置和后置递减运算符`--`。除`forward_list`之外的其他标准库容器都提供符合双向迭代器要求的迭代器。
 
 - 随机访问迭代器（random-access iterator）：可以在常量时间内访问序列中的任何元素。除了支持所有双向迭代器的操作之外，还必须支持以下操作：
 
@@ -465,13 +465,13 @@ reverse_copy(beg, end, dest);   // copy elements in reverse order into dest
 
 ## 特定容器算法（Container-Specific Algorithms）
 
-对于list和forward_list类型，应该优先使用成员函数版本的算法，而非通用算法。
+对于`list`和`forward_list`类型，应该优先使用成员函数版本的算法，而非通用算法。
 
-list和forward_list成员函数版本的算法：
+`list`和`forward_list`成员函数版本的算法：
 
 ![10-9](Image/10-9.png)
 
-list和forward_list的`splice`函数可以进行容器合并，其参数如下：
+`list`和`forward_list`的`splice`函数可以进行容器合并，其参数如下：
 
 ![10-10](Image/10-10.png)
 

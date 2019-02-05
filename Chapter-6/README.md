@@ -33,7 +33,7 @@ int main()
 
 `return`语句结束函数的执行过程，完成两项工作：
 
-- 返回return语句中的值（可能没有值）。
+- 返回`return`语句中的值（可能没有值）。
 - 将控制权从被调函数转移回主调函数，函数的返回值用于初始化调用表达式的结果。
 
 实参是形参的初始值，两者的顺序和类型必须一一对应。
@@ -124,9 +124,9 @@ void reset(int &i)  // i is just another name for the object passed to reset
 
 ### const形参和实参（const Parameters and Arguments）
 
-当形参有顶层const时，传递给它常量对象或非常量对象都是可以的。
+当形参有顶层`const`时，传递给它常量对象或非常量对象都是可以的。
 
-可以使用非常量对象初始化一个底层const形参，但是反过来不行。
+可以使用非常量对象初始化一个底层`const`形参，但是反过来不行。
 
 把函数不会改变的形参定义成普通引用会极大地限制函数所能接受的实参类型，同时也会给别人一种误导，即函数可以修改实参的值。
 
@@ -160,7 +160,7 @@ f(int (&arr)[10])   // ok: arr is a reference to an array of ten ints
 
 ### main：处理命令行选项（main：Handling Command-Line Options）
 
-可以在命令行中向main函数传递参数，形式如下：
+可以在命令行中向`main`函数传递参数，形式如下：
 
 ```c++
 int main(int argc, char *argv[]) { /*...*/ }
@@ -169,9 +169,9 @@ int main(int argc, char **argv) { /*...*/ }
 
 第二个形参*argv*是一个数组，数组元素是指向C风格字符串的指针；第一个形参*argc*表示数组中字符串的数量。
 
-当实参传递给main函数后，*argv*的第一个元素指向程序的名字或者一个空字符串，接下来的元素依次传递命令行提供的实参。最后一个指针之后的元素值保证为0。
+当实参传递给`main`函数后，*argv*的第一个元素指向程序的名字或者一个空字符串，接下来的元素依次传递命令行提供的实参。最后一个指针之后的元素值保证为0。
 
-在Visual Studio中可以设置main函数调试参数：
+在*Visual Studio*中可以设置`main`函数调试参数：
 
 ![6-1](Image/6-1.png)
 
@@ -194,17 +194,17 @@ C++11新标准提供了两种主要方法处理实参数量不定的函数。
 
 C++还可以使用省略符形参传递可变数量的实参，但这种功能一般只用在与C函数交换的接口程序中。
 
-initializer_list是一种标准库类型，定义在头文件*initializer_list*中，表示某种特定类型的值的数组。
+`initializer_list`是一种标准库类型，定义在头文件*initializer_list*中，表示某种特定类型的值的数组。
 
-initializer_list提供的操作：
+`initializer_list`提供的操作：
 
 ![6-2](Image/6-2.png)
 
-拷贝或赋值一个initializer_list对象不会拷贝列表中的元素。拷贝后，原始列表和副本共享元素。
+拷贝或赋值一个`initializer_list`对象不会拷贝列表中的元素。拷贝后，原始列表和副本共享元素。
 
-initializer_list对象中的元素永远是常量值。
+`initializer_list`对象中的元素永远是常量值。
 
-如果想向initializer_list形参传递一个值的序列，则必须把序列放在一对花括号内。
+如果想向`initializer_list`形参传递一个值的序列，则必须把序列放在一对花括号内。
 
 ```c++
 if (expected != actual)
@@ -213,7 +213,7 @@ else
     error_msg(ErrCode(0), {"functionX", "okay"});
 ```
 
-因为initializer_list包含begin和end成员，所以可以使用范围for循环处理其中的元素。
+因为`initializer_list`包含`begin`和`end`成员，所以可以使用范围`for`循环处理其中的元素。
 
 省略符形参是为了便于C++程序访问某些特殊的C代码而设置的，这些代码使用了名为`varargs`的C标准库功能。通常，省略符形参不应该用于其他目的。
 
@@ -221,7 +221,7 @@ else
 
 ## 返回类型和return语句（Return Types and the return Statement）
 
-return语句有两种形式，作用是终止当前正在执行的函数并返回到调用该函数的地方。
+`return`语句有两种形式，作用是终止当前正在执行的函数并返回到调用该函数的地方。
 
 ```c++
 return;
@@ -230,19 +230,19 @@ return expression;
 
 ### 无返回值函数（Functions with No Return Value）
 
-没有返回值的return语句只能用在返回类型是void的函数中。返回void的函数不要求非得有return语句，因为在这类函数的最后一条语句后面会隐式地执行return。
+没有返回值的`return`语句只能用在返回类型是`void`的函数中。返回`void`的函数可以省略`return`语句，因为在这类函数的最后一条语句后面会隐式地执行`return`。
 
-通常情况下，如果void函数想在其中间位置提前退出，可以使用return语句。
+通常情况下，如果`void`函数想在其中间位置提前退出，可以使用`return`语句。
 
-一个返回类型是void的函数也能使用return语句的第二种形式，不过此时return语句的expression必须是另一个返回void的函数。
+一个返回类型是`void`的函数也能使用`return`语句的第二种形式，不过此时`return`语句的*expression*必须是另一个返回`void`的函数。
 
-强行令void函数返回其他类型的表达式将产生编译错误。
+强行令`void`函数返回其他类型的表达式将产生编译错误。
 
 ### 有返回值函数（Functions That Return a Value）
 
-return语句的第二种形式提供了函数的结果。只要函数的返回类型不是void，该函数内的每条return语句就必须返回一个值，并且返回值的类型必须与函数的返回类型相同，或者能隐式地转换成函数的返回类型（main函数例外）。
+`return`语句的第二种形式提供了函数的结果。只要函数的返回类型不是`void`，该函数内的每条`return`语句就必须返回一个值，并且返回值的类型必须与函数的返回类型相同，或者能隐式地转换成函数的返回类型（`main`函数例外）。
 
-在含有return语句的循环后面应该也有一条return语句，否则程序就是错误的，但很多编译器无法发现此错误。
+在含有`return`语句的循环后面应该也有一条`return`语句，否则程序就是错误的，但很多编译器无法发现此错误。
 
 函数返回一个值的方式和初始化一个变量或形参的方式完全一样：返回的值用于初始化调用点的一个临时量，该临时量就是函数调用的结果。
 
@@ -287,11 +287,11 @@ C++11规定，函数可以返回用花括号包围的值的列表。同其他返
   }
   ```
 
-main函数可以没有return语句直接结束。如果控制流到达了main函数的结尾处并且没有return语句，编译器会隐式地插入一条返回0的return语句。
+`main`函数可以没有`return`语句直接结束。如果控制流到达了`main`函数的结尾处并且没有`return`语句，编译器会隐式地插入一条返回0的`return`语句。
 
-main函数的返回值可以看作是状态指示器。返回0表示执行成功，返回其他值表示执行失败，其中非0值的具体含义依机器而定。
+`main`函数的返回值可以看作是状态指示器。返回0表示执行成功，返回其他值表示执行失败，其中非0值的具体含义依机器而定。
 
-为了使main函数的返回值与机器无关，头文件*cstdlib*定义了`EXIT_SUCCESS`和`EXIT_FAILURE`这两个预处理变量，分别表示执行成功和失败。
+为了使`main`函数的返回值与机器无关，头文件*cstdlib*定义了`EXIT_SUCCESS`和`EXIT_FAILURE`这两个预处理变量，分别表示执行成功和失败。
 
 ```c++
 int main()
@@ -303,7 +303,7 @@ int main()
 }
 ```
 
-建议使用预处理变量EXIT_SUCCESS和EXIT_FAILURE表示main函数的执行结果。
+建议使用预处理变量`EXIT_SUCCESS`和`EXIT_FAILURE`表示`main`函数的执行结果。
 
 如果一个函数调用了它自身，不管这种调用是直接的还是间接的，都称该函数为递归函数（recursive function）。
 
@@ -321,7 +321,7 @@ int factorial(int val)
 
 相对于循环迭代，递归的效率较低。但在某些情况下使用递归可以增加代码的可读性。循环迭代适合处理线性问题（如链表，每个节点有唯一前驱、唯一后继），而递归适合处理非线性问题（如树，每个节点的前驱、后继不唯一）。
 
-main函数不能调用它自身。
+`main`函数不能调用它自身。
 
 ### 返回数组指针（Returning a Pointer to an Array）
 
@@ -335,7 +335,7 @@ Type (*function(parameter_list))[dimension]
 
 其中*Type*表示元素类型，*dimension*表示数组大小，*(\*function (parameter_list))*两端的括号必须存在。
 
-C++11允许使用尾置返回类型（trailing return type）简化复杂函数声明。尾置返回类型跟在形参列表后面，并以一个`->`符号开头。为了表示函数真正的返回类型在形参列表之后，需要在本应出现返回类型的地方添加auto关键字。
+C++11允许使用尾置返回类型（trailing return type）简化复杂函数声明。尾置返回类型跟在形参列表后面，并以一个`->`符号开头。为了表示函数真正的返回类型在形参列表之后，需要在本应出现返回类型的地方添加`auto`关键字。
 
 ```c++
 // fcn takes an int argument and returns a pointer to an array of ten ints
@@ -344,7 +344,7 @@ auto func(int i) -> int(*)[10];
 
 任何函数的定义都能使用尾置返回类型，但是这种形式更适用于返回类型比较复杂的函数。
 
-如果我们知道函数返回的指针将指向哪个数组，就可以使用decltype关键字声明返回类型。但decltype并不会把数组类型转换成指针类型，所以还要在函数声明中添加一个`*`符号。
+如果我们知道函数返回的指针将指向哪个数组，就可以使用`decltype`关键字声明返回类型。但`decltype`并不会把数组类型转换成指针类型，所以还要在函数声明中添加一个`*`符号。
 
 ```c++
 int odd[] = {1,3,5,7,9};
@@ -360,11 +360,11 @@ decltype(odd) *arrPtr(int i)
 
 同一作用域内的几个名字相同但形参列表不同的函数叫做重载函数。
 
-main函数不能重载。
+`main`函数不能重载。
 
 不允许两个函数除了返回类型以外的其他所有要素都相同。
 
-顶层const不影响传入函数的对象，一个拥有顶层const的形参无法和另一个没有顶层const的形参区分开来。
+顶层`const`不影响传入函数的对象，一个拥有顶层`const`的形参无法和另一个没有顶层`const`的形参区分开来。
 
 ```c++
 Record lookup(Phone);
@@ -373,7 +373,7 @@ Record lookup(Phone*);
 Record lookup(Phone* const); // redeclares Record lookup(Phone*)
 ```
 
-如果形参是某种类型的指针或引用，则通过区分其指向的对象是常量还是非常量可以实现函数重载，此时的const是底层的。当我们传递给重载函数一个非常量对象或者指向非常量对象的指针时，编译器会优先选用非常量版本的函数。 
+如果形参是某种类型的指针或引用，则通过区分其指向的对象是常量还是非常量可以实现函数重载，此时的`const`是底层的。当我们传递给重载函数一个非常量对象或者指向非常量对象的指针时，编译器会优先选用非常量版本的函数。 
 
 ```c++
 // functions taking const and nonconst references or pointers have different parameters
@@ -384,7 +384,7 @@ Record lookup(Account*);        // new function, takes a pointer to Account
 Record lookup(const Account*);  // new function, takes a pointer to const
 ```
 
-const_cast可以用于函数的重载。当函数的实参不是常量时，将得到普通引用。 
+`const_cast`可以用于函数的重载。当函数的实参不是常量时，将得到普通引用。 
 
 ```c++
 // return a reference to the shorter of two strings
@@ -506,11 +506,11 @@ inline const string &horterString(const string &s1, const string &s2)
 }
 ```
 
-在函数声明和定义中都能使用关键字inline，但是建议只在函数定义时使用。
+在函数声明和定义中都能使用关键字`inline`，但是建议只在函数定义时使用。
 
-一般来说，内联机制适用于优化规模较小、流程直接、调用频繁的函数。内联函数中不允许有循环语句和switch语句，否则函数会被编译为普通函数。
+一般来说，内联机制适用于优化规模较小、流程直接、调用频繁的函数。内联函数中不允许有循环语句和`switch`语句，否则函数会被编译为普通函数。
 
-`constexpr`函数是指能用于常量表达式的函数。constexpr函数的返回类型及所有形参的类型都得是字面值类型。另外C++11标准要求constexpr函数体中必须有且只有一条return语句，但是此限制在C++14标准中被删除。
+`constexpr`函数是指能用于常量表达式的函数。`constexpr`函数的返回类型及所有形参的类型都得是字面值类型。另外C++11标准要求`constexpr`函数体中必须有且只有一条`return`语句，但是此限制在C++14标准中被删除。
 
 ```c++
 constexpr int new_sz() 
@@ -521,7 +521,7 @@ constexpr int new_sz()
 constexpr int foo = new_sz();   // ok: foo is a constant expression
 ```
 
-constexpr函数的返回值可以不是一个常量。
+`constexpr`函数的返回值可以不是一个常量。
 
 ```c++
 // scale(arg) is a constant expression if arg is a constant expression
@@ -535,19 +535,19 @@ int i = 2;          // i is not a constant expression
 int a2[scale(i)];   // error: scale(i) is not a constant expression
 ```
 
-constexpr函数被隐式地指定为内联函数。
+`constexpr`函数被隐式地指定为内联函数。
 
-和其他函数不同，内联函数和constexpr函数可以在程序中多次定义。因为在编译过程中，编译器需要函数的定义来随时展开函数。对于某个给定的内联函数或constexpr函数，它的多个定义必须完全一致。因此内联函数和constexpr函数通常定义在头文件中。
+和其他函数不同，内联函数和`constexpr`函数可以在程序中多次定义。因为在编译过程中，编译器需要函数的定义来随时展开函数。对于某个给定的内联函数或`constexpr`函数，它的多个定义必须完全一致。因此内联函数和`constexpr`函数通常定义在头文件中。
 
 ### 调试帮助（Aids for Debugging）
 
-|   变量名称   |     内容     |
-| :----------: | :----------: |
-| \_\_func\_\_ | 当前函数名称 |
-| \_\_FILE\_\_ | 当前文件名称 |
-| \_\_LINE\_\_ |   当前行号   |
-| \_\_TIME\_\_ | 文件编译时间 |
-| \_\_DATE\_\_ | 文件编译日期 |
+|  变量名称  |     内容     |
+| :--------: | :----------: |
+| `__func__` | 当前函数名称 |
+| `__FILE__` | 当前文件名称 |
+| `__LINE__` |   当前行号   |
+| `__TIME__` | 文件编译时间 |
+| `__DATE__` | 文件编译日期 |
 
 ## 函数匹配（Function Matching）
 
@@ -563,7 +563,7 @@ constexpr函数被隐式地指定为内联函数。
 
 所有算术类型转换的级别都一样。
 
-如果载函数的区别在于它们的引用或指针类型的形参是否含有底层const，则调用发生时编译器通过实参是否是常量来决定函数的版本。
+如果载函数的区别在于它们的引用或指针类型的形参是否含有底层`const`，则调用发生时编译器通过实参是否是常量来决定函数的版本。
 
 ```c++
 Record lookup(Account&);    // function that takes a reference to Account
@@ -617,6 +617,6 @@ void useBigger(const string &s1, const string &s2, bool (*pf)(const string &, co
 useBigger(s1, s2, lengthCompare);
 ```
 
-关键字decltype作用于函数时，返回的是函数类型，而不是函数指针类型。
+关键字`decltype`作用于函数时，返回的是函数类型，而不是函数指针类型。
 
 函数可以返回指向函数的指针。但返回类型不会像函数类型的形参一样自动地转换成指针，必须显式地将其指定为指针类型。
